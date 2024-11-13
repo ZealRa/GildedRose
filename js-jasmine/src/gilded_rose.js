@@ -21,18 +21,16 @@ class Shop {
           this.updateBackstagePass(item);
           break;
         case 'Sulfuras, Hand of Ragnaros':
-          break; // Sulfuras ne change jamais, aucune action nécessaire
+          break;
         default:
           this.updateRegularItem(item);
           break;
       }
 
-      // Décrémente le délai de vente, sauf pour Sulfuras
       if (item.name !== 'Sulfuras, Hand of Ragnaros') {
         item.sellIn -= 1;
       }
 
-      // Si le produit est expiré, applique une logique spéciale
       if (item.sellIn < 0) {
         this.handleExpiredItem(item);
       }
@@ -41,7 +39,6 @@ class Shop {
     return this.items;
   }
 
-  // Méthodes de mise à jour pour chaque type d'article
   updateAgedBrie(item) {
     if (item.quality < 50) {
       item.quality += 1;
@@ -65,7 +62,7 @@ class Shop {
       item.quality -= 1;
     }
     if (item.name.startsWith('Conjured') && item.quality > 0) {
-      item.quality -= 1; // Les articles Conjured se dégradent deux fois plus vite
+      item.quality -= 1;
     }
   }
 
@@ -73,11 +70,11 @@ class Shop {
     if (item.name === 'Aged Brie') {
       if (item.quality < 50) item.quality += 1;
     } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
-      item.quality = 0; // La qualité tombe à 0 après le concert
+      item.quality = 0; 
     } else {
       if (item.quality > 0) item.quality -= 1;
       if (item.name.startsWith('Conjured') && item.quality > 0) {
-        item.quality -= 1; // Les articles Conjured se dégradent aussi plus vite après péremption
+        item.quality -= 1;
       }
     }
   }
